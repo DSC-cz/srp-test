@@ -1,5 +1,59 @@
- .nav-item{
-     margin: 0 10px;
+ $inputcolor: #2196F3;
+
+  /* label focus color */
+  .input-field input:focus + label {
+    color: $inputcolor;
+  }
+  /* label underline focus color */
+  .input-field input:focus {
+    border-bottom: 1px solid $inputcolor !important;
+  }
+  /* valid color */
+  .input-field input.valid {
+    border-bottom: 1px solid $inputcolor;
+  }
+
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color: $inputcolor;
+  }
+
+ .d-flex{
+     display:flex;
+ }
+
+ .align-center{
+     align-items: center;
+     justify-content: center;
+ }
+ 
+ .ms-10{
+     margin-left: 10px;
+     margin-right: 10px;
+ }
+
+ .mtb-10{
+     margin-top: 10px;
+     margin-bottom: 10px;
+ }
+
+ .ps-10{
+     padding-left: 10px;
+     padding-right: 10px;
+ }
+
+ .ptb-10{
+     padding-top: 10px;
+     padding-bottom: 10px;
+ }
+
+ .w-50{
+     width: 50%;
+ }
+
+ .center{
+     margin-left: auto;
+     margin-right: auto;
  }
 
  .sidenav{
@@ -18,6 +72,10 @@
             }
         }
     }
+ }
+
+ #header h3{
+    border-radius: 10px;
  }
 
  .sidenav .fixed{

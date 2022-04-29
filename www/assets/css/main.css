@@ -1,5 +1,65 @@
-.nav-item {
-  margin: 0 10px;
+/* label focus color */
+.input-field input:focus + label {
+  color: #2196F3;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #2196F3 !important;
+}
+
+/* valid color */
+.input-field input.valid {
+  border-bottom: 1px solid #2196F3;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #2196F3;
+}
+
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.align-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.ms-10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mtb-10 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.ps-10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ptb-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sidenav {
@@ -20,6 +80,10 @@
 
 .sidenav li a i {
   color: white !important;
+}
+
+#header h3 {
+  border-radius: 10px;
 }
 
 .sidenav .fixed {
