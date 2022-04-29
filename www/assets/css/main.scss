@@ -1,0 +1,50 @@
+ .nav-item{
+     margin: 0 10px;
+ }
+
+ .sidenav{
+     max-width: 50px;
+     transform: translateX(0) !important;
+     padding: 10px 0;
+
+     li {
+         height: 60px;
+        a{
+            padding: 0 15px;
+            width: auto;
+
+            i {
+                color: white !important;
+            }
+        }
+    }
+ }
+
+ .sidenav .fixed{
+     width: 300px;
+ }
+
+ .content{
+     margin-left: 50px;
+     transition: .4s linear;
+
+     .title{
+         line-height: 60px;
+         padding: 0 15px;
+         font-size: 20px;
+     }
+ }
+
+ .content.full-page{
+     margin-left: 0px !important;
+ }
+
+ .sidenav-overlay {
+    height: 0px;
+    width: 0px;
+}
+
+ #container{
+     position: relative;
+     display: block;
+ }
