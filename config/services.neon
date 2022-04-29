@@ -1,2 +1,4 @@
 services:
 	- App\Router\RouterFactory::createRouter
+	- App\Front\Model\Authenticator
+	- App\Brands\Model\BrandRepository

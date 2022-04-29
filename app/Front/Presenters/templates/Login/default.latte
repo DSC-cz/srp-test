@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Přihlášení | Sportisimo</title>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+</head>
+
+<body>
+    <main id="container">
+        <article>
+            <section id="header" class="center w-50">
+                <h3 class="ptb-10 blue darken-3 white-text center padding-tb-10">Přihlášení</h3>
+            </section>
+            <section id="errors" n:if="$form->hasErrors()">
+                <div n:foreach="$form->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </section>
+            <section id="form" class="center w-50 mtb-10">
+                <form n:name=signIn class=form>
+                    <div class="input-field"><i class="material-icons prefix circle">people</i><label for="username" n:name=username>Uživatelské jméno</label> <input id="username" n:name=username class="validate"></div>
+                    <div class="input-field"><i class="material-icons prefix circle">password</i><label for="password" n:name=password>Heslo</label> <input id="password" n:name=password class="validate"></div>
+                    <button n:name=send class="btn btn-default blue waves-effect waves-light">Přihlásit se</button>
+                </form>
+            </section>
+        </article>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
