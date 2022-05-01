@@ -14,13 +14,13 @@
 <body>
     <main id="container">
         <article>
-            <section id="header" class="center w-50">
+            <section id="header" class="center w-50 wm-75">
                 <h3 class="ptb-10 blue darken-3 white-text center padding-tb-10">Přihlášení</h3>
             </section>
             <section id="errors" n:if="$form->hasErrors()">
                 <div n:foreach="$form->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
             </section>
-            <section id="form" class="center w-50 mtb-10">
+            <section id="form" class="center w-50 wm-75 mtb-10">
                 <form n:name=signIn class=form>
                     <div class="input-field"><i class="material-icons prefix circle">people</i><label for="username" n:name=username>Uživatelské jméno</label> <input id="username" n:name=username class="validate"></div>
                     <div class="input-field"><i class="material-icons prefix circle">password</i><label for="password" n:name=password>Heslo</label> <input id="password" n:name=password class="validate"></div>
