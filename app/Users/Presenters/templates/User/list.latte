@@ -3,7 +3,7 @@
 {block back}Uživatelé{/block}
 
 {block content}
-    <a href="#add" class="modal-trigger mtb-10 btn blue ps-10 d-flex align-center ms-30 w-25" data-target="add"><i class="material-icons">add</i> Přidat uživatele</a>
+    <a href="#add" class="modal-trigger mtb-10 btn blue ps-10 d-flex align-center ms-30 w-25 wm-75 m-center" data-target="add"><i class="material-icons">add</i> Přidat uživatele</a>
     
     <div class="modal" id="add">
         <div class="modal-content">
@@ -51,10 +51,10 @@
                 <div n:foreach="$forms[reset]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
             </div>
             <div id="reset_form" class="center w-50 mtb-10">
-                <p class="center mtb-10">Resetování hesla pro uživatele <strong class="red-text name"></strong></p>
+                <p class="center mtb-10">Resetování hesla pro uživatele <strong class="red-text name">{ifset $reset_user}{$reset_user["username"]}{/ifset}</strong></p>
                 
                 <form n:name=resetPassword class=form>
-                    <input type="hidden" n:name="reset_id">
+                    <input type="hidden" n:name="reset_id" value="{ifset $reset_user}{$reset_user[id]}{/ifset}">
                     <div class="input-field"><i class="material-icons prefix circle">password</i><label for="pass">Nové heslo</label> <input id="pass" n:name=password class="validate"></div>
                     
                     <button n:name=reset class="btn btn-default blue waves-effect waves-light">Resetovat heslo</button>
@@ -100,35 +100,20 @@
 {/block}
 
 {block custom_scripts}
+    <script src="/assets/Modules/User/user.js"></script>
     <script>
-        $(".delete-item").click(function(){
-            $.ajax({
-                url: "/users/info/"+$(this).attr("data-id"),
-                type: "GET",
-                success: function(data){
-                    data = JSON.parse(data);
-                    $("#delete .name").html(data["username"]);
-                    $("[name=remove_id]").val(data["id"]);
-                },
-                error: function(){
-                    alert("Napodařilo se získat data uživatele");
-                }
-            })
-        });
+        $(document).ready(function(){
+            {if $forms["add"]->hasErrors()}
+            $("#add").modal('open');
+            {/if}
 
-        $(".reset-item").click(function(){
-            $.ajax({
-                url: "/users/info/"+$(this).attr("data-id"),
-                type: "GET",
-                success: function(data){
-                    data = JSON.parse(data);
-                    $("#reset .name").html(data["username"]);
-                    $("[name=reset_id]").val(data["id"]);
-                },
-                error: function(){
-                    alert("Napodařilo se získat data uživatele");
-                }
-            })
+            {if $forms["reset"]->hasErrors()}
+                $("#reset").modal('open');
+            {/if}
+
+            {if $forms["delete"]->hasErrors()}
+                $("#delete").modal('open');
+            {/if}
         });
     </script>
 {/block}

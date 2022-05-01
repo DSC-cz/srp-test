@@ -19,7 +19,7 @@ final class BrandPresenter extends BasePresenter {
     private $forms;
     private $query;
 
-    public function __construct(Nette\Security\User $user, BrandRepository $brandsRepository){
+    public function __construct(User $user, BrandRepository $brandsRepository){
         $this->user = $user;
         $this->brandsRepository = $brandsRepository;
 
@@ -82,7 +82,7 @@ final class BrandPresenter extends BasePresenter {
         try{
             $this->brandsRepository->insert($values->name, $this->user->getIdentity()->id);
             $this->flashMessage("Značka úspěšně přidána.", "success");
-        } catch (Exception $e){
+        } catch (\Exception $e){
             $this->forms["add"]->addError($e->getMessage());
         }
     }
@@ -100,7 +100,7 @@ final class BrandPresenter extends BasePresenter {
         try {
             $this->brandsRepository->delete($values->delete_id);
             $this->flashMessage("Značka úspěšně smazána.");
-        } catch (Exception $e){
+        } catch (Nette\Database\UniqueConstraintViolationException $e){
             $this->forms["delete"]->addError($e->getMessage());
         }
     }
@@ -118,7 +118,7 @@ final class BrandPresenter extends BasePresenter {
         try {
             $this->brandsRepository->update($values->edit_id, $values->new_name, $this->user->getIdentity()->id);
             $this->flashMessage("Značka úspěšně upravena.");
-        } catch (Exception $e){
+        } catch (Nette\Database\UniqueConstraintViolationException $e){
             $this->forms["edit"]->addError($e->getMessage());
         }
     }

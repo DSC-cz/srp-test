@@ -16,7 +16,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     private $form;
     private $user;
 
-    public function __construct(\App\Front\Model\Authenticator $auth, Nette\Security\User $user){
+    public function __construct(Authenticator $auth, User $user){
         $this->auth = $auth;
         $this->form = new Form;
         $this->user = $user;

@@ -27,6 +27,9 @@ final class BrandRepository {
     }
 
     public function insert($name, $created_by){
+        if(strlen($name) < 3 || strlen($name) > 50) throw new \Exception("Značka musí obsahovat alespoň 3 znaky a nesmí být delší než 50 znaků.");
+        if($this->getBrands()->where("name", $name)->count() !== 0) throw new \Exception("Zadaná značka je již založena.");
+        
         return $this->database->table('brands')->insert(['name'=>$name, 'created_by'=>$created_by, 'created_at'=>date("Y-m-d H:i:s", strtotime("now"))]);
     }
 

@@ -7,11 +7,12 @@ namespace App\Global\Presenters;
 use Nette;
 
 use App\Global\Presenters\BasePresenter;
+use Nette\Security\User;
 
 
 final class Error4xxPresenter extends BasePresenter
 {
-	public function __construct(Nette\Security\User $user){
+	public function __construct(User $user){
 		$this->user = $user;
 	}
 

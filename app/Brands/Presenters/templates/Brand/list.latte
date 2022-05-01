@@ -2,7 +2,7 @@
 {block title}SRP{/block}
 {block back}Značky{/block}
 {block content}
-	<a href="#add" class="waves-effect waves-light btn modal-trigger btn blue ms-30 mtb-10 ps-10 d-flex align-center w-25"><i class="material-icons ps-10">add</i> Přidat značku</a>
+	<a href="#add" class="waves-effect waves-light btn modal-trigger btn blue ms-30 mtb-10 ps-10 d-flex align-center w-25 wm-75 m-center"><i class="material-icons ps-10">add</i> Přidat značku</a>
 
 	<div id="add" class="modal">
 		<div class="modal-content">
@@ -58,7 +58,7 @@
 		</div>
 	</div>
 
-	<table class="responsive-table w-90 ms-30 gray-border-tr gray-text darken-text-2">
+	<table class="ms-30 gray-border-tr gray-text darken-text-2">
 		<thead>
 			<tr>
 				<th class="gray ps-10 d-flex center"><span>Název</span> <a href="?rows={$rows}&order_by=name&type=ASC"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=name&type=DESC"><i class="material-icons">arrow_downward</i></a></th>
@@ -92,34 +92,19 @@
 {/block}
 
 {block custom_scripts}
+	<script src="/assets/Modules/Brands/brands.js"></script>
 	<script>
-	$(".edit-item").click(function(){
-		$.ajax({
-			url: "/brands/info/"+$(this).attr("data-id"),
-			type: "GET",
-			success: function(data){
-				data = JSON.parse(data);
-				$("[name=new_name]").val(data["name"]);
-				$("[name=edit_id]").val(data["id"]);
-			},
-			error: function(){
-				console.error("Nepodařilo se získat data pro editaci položky.");
-			}
-		});
+	$(document).ready(function(){
+		{if $forms["add"]->hasErrors()}
+			$("#add").modal('open');
+		{/if}
+		{if $forms["delete"]->hasErrors()}
+			$("#delete").modal('open');
+		{/if}
+		{if $forms["edit"]->hasErrors()}
+			$("#edit").modal('open');
+		{/if}
 	});
-	$(".delete-item").click(function(){
-		$.ajax({
-			url: "/brands/info/"+$(this).attr("data-id"),
-			type: "GET",
-			success: function(data){
-				data = JSON.parse(data);
-				$("strong.name").html(data["name"]);
-				$("[name=delete_id]").val(data["id"]);
-			},
-			error: function(){
-				console.error("Nepodařilo se získat data pro smazání položky.");
-			}
-		})
-	});
+	
 	</script>
 {/block}

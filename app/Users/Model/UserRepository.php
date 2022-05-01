@@ -23,6 +23,11 @@ final class UserRepository{
     }
 
     public function addUser($username, $password, $email){
+        if(strlen($username) < 3 || strlen($username) > 32) throw new \Exception("Uživatelské jméno musí být dlouhé 3-32 znaků.");
+        if(strlen($password) < 8) throw new \Exception("Heslo musí mít minimálně 8 znaků.");
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new \Exception("Zadal jste neplatný email.");
+        if($this->getUsers()->whereOr(['username'=>$username, 'email'=>$email])->count() > 0) throw new \Exception("Zadané uživatelské jméno nebo email je již registrovaný.");
+
         return $this->database->table('users')->insert([
             'username'=>$username,
             'password'=>$this->passwords->hash($password),
@@ -35,6 +40,8 @@ final class UserRepository{
     }
 
     public function reset($id, $password){
+        if(strlen($password) < 8) throw new \Exception("Heslo musí mít minimálně 8 znaků.");
+        
         return $this->database->table('users')->where('id', $id)->update(['password'=>$this->passwords->hash($password)]);
     }
 }

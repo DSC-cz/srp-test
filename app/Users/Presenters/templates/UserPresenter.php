@@ -7,13 +7,14 @@ use App\Global\Presenters\BasePresenter;
 use App\Users\Model\UserRepository;
 use Nette\Application\UI\Form;
 use Nette\Http\Url;
+use Nette\Security\User;
 
 final class UserPresenter extends BasePresenter {
     private $usersRepository;
     private $forms;
     protected $params;
 
-    public function __construct(Nette\Security\User $user, \App\Users\Model\UserRepository $repository){
+    public function __construct(User $user, UserRepository $repository){
         $this->user = $user;
         $this->usersRepository = $repository;
         $this->forms = ["add"=>new Form, "delete"=>new Form, "reset"=>new Form];
@@ -78,7 +79,7 @@ final class UserPresenter extends BasePresenter {
         try{
             $this->usersRepository->addUser($values->username, $values->password, $values->email);
             $this->flashMessage("Uživatelský učet úspěšně přidán.");
-        } catch (Exception $e){
+        } catch (\Exception $e){
             $this->forms["add"]->addError($e->getMessage());
         }
     }
@@ -96,7 +97,7 @@ final class UserPresenter extends BasePresenter {
         try{
             $this->usersRepository->delete($values->remove_id);
             $this->flashMessage("Uživatelský účet úspěšně odebrán.");
-        } catch (Exception $e){
+        } catch (\Exception $e){
             $this->forms["delete"]->addError($e->getMessage());
         }
     }
@@ -116,7 +117,8 @@ final class UserPresenter extends BasePresenter {
         try{
             $this->usersRepository->reset($values->reset_id, $values->password);
             $this->flashMessage("Uživatelskému účtu bylo úspěšně změněno heslo.");
-        } catch (Exception $e){
+        } catch (\Exception $e){
+            $this->template->reset_user = ["id"=>$values->reset_id, "username"=>$this->usersRepository->getUsers()->where("id",$values->reset_id)->fetch()["username"]];
             $this->forms["reset"]->addError($e->getMessage());
         }
     }
