@@ -6,9 +6,15 @@ namespace App\Global\Presenters;
 
 use Nette;
 
+use App\Global\Presenters\BasePresenter;
 
-final class Error4xxPresenter extends Nette\Application\UI\Presenter
+
+final class Error4xxPresenter extends BasePresenter
 {
+	public function __construct(Nette\Security\User $user){
+		$this->user = $user;
+	}
+
 	public function startup(): void
 	{
 		parent::startup();
@@ -16,7 +22,6 @@ final class Error4xxPresenter extends Nette\Application\UI\Presenter
 			$this->error();
 		}
 	}
-
 
 	public function renderDefault(Nette\Application\BadRequestException $exception): void
 	{

@@ -2,19 +2,25 @@
 namespace App\Global\Presenters;
 
 use Nette;
+use Nette\Http\Request;
 
 class BasePresenter extends Nette\Application\UI\Presenter {
-    public $user;
+    protected $user;
+    protected $allowed_rows = [5, 10, 20, 30];
 
     public function isLoggedIn(){
         if(!$this->user->isLoggedIn()){
-            header('Location: /');
+            $this->redirect(":Front:Login:default");
             exit();
         }
     }
 
+    protected function PushToTemplate(){
+        $this->template->user = $this->user->getIdentity()->name;
+    }
+
     public function beforeRender(){
-        $this->template->user = $this->user->getIdentity()->name; 
+        $this->PushToTemplate();
     }
 
 }

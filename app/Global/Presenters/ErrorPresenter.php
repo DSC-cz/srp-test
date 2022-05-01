@@ -8,10 +8,10 @@ use Nette;
 use Nette\Application\Responses;
 use Nette\Http;
 use Tracy\ILogger;
+use App\Global\Presenters\BasePresenter;
 
 
-final class ErrorPresenter implements Nette\Application\IPresenter
-{
+final class ErrorPresenter extends BasePresenter implements Nette\Application\IPresenter{
 	use Nette\SmartObject;
 
 	/** @var ILogger */

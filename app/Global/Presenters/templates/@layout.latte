@@ -10,27 +10,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 </head>
-
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+		{$flash->message}
+		<button class="btn blue white-text close-flash">Zavřít</button>
+	</div>
 
 	<nav>
 		<div class="nav-wrapper blue darken-3">
-			<a href="#" data-target="side-menu" class="sidenav-trigger show-on-medium-and-up"><i class="material-icons">menu</i></a>
+			<a href="#" data-target="side-menu" class="sidenav-trigger show-on-medium-and-up" style="display: {if sidebar == true}block{else}none{/if}"><i class="material-icons">menu</i></a>
 			<span class="ms-10 brand-logo flow-text left">{ifset title}{include title|stripHtml}{/ifset}</span>
 			<div class="ms-10 right"><strong><a n:href=":Front:Logout:default">Odhlásit</a></strong> ({$user})</div>
 		</div>
 	</nav>
 
 	<div id="container">
-		<ul id="side-menu" class="sidenav blue darken-3">
+		<ul class="sidenav sidenav-always blue darken-3">
 			 <li><a href="#" data-target="side-menu" class="sidenav-trigger show-on-medium-and-up"><i class="material-icons">menu</i></a></li>
-        	 <li><a href="/dashboard" id="active"><i class="material-icons">dashboard</i></a></li>
-        	 <li><a href="#"><i class="material-icons">people</i></a></li>
-        	 <li><a href="#"><i class="material-icons">new_releases</i></a></li>
-        	 <li><a href="/brands/"><i class="material-icons">local_offer</i></a></li>
+        	 <li><a n:href=":Dashboard:Dashboard:default" id="active"><i class="material-icons flow-text">dashboard</i></a></li>
+        	 <li><a n:href=":Users:User:list"><i class="material-icons flow-text">people</i></a></li>
+        	 <li><a href="#"><i class="material-icons flow-text">new_releases</i></a></li>
+        	 <li><a n:href=":Brands:Brand:list"><i class="material-icons flow-text">local_offer</i></a></li>
     	</ul>
-		{include content}
+
+		<ul id="side-menu" class="sidenav">			 
+			 <li class="blue darken-3"><a href="#" class="flow-text white-text center">SRP</a></li>
+        	 <li><a n:href=":Dashboard:Dashboard:default"><i class="material-icons">dashboard</i> Dashboard</a></li>
+        	 <li><a n:href=":Users:User:list"><i class="material-icons">people</i> Uživatelé</a></li>
+        	 <li><a href="#"><i class="material-icons">new_releases</i></a></li>
+        	 <li><a n:href=":Brands:Brand:list"><i class="material-icons">local_offer</i> Značky</a></li>
+    	</ul>
+		{ifset back}
+			<div class="title blue darken-1 white-text flow-text"><a n:href=":Dashboard:Dashboard:default"><i class="material-icons">keyboard_backspace</i> {include back}</a></div>
+		{/ifset}
+		<div class="content">
+			{include content}
+		</div>
 	</div>
 
 	{block scripts}
@@ -39,12 +54,27 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script>
 	  	$(document).ready(function(){
-			$('.sidenav-trigger').click(function(){
-				$(".sidenav").toggle("fixed");
-				$(".content").toggleClass("full-page");
+			$('#side-menu').sidenav();
+			$('.modal').modal();
+
+			$(window).resize(function(){
+				if($(window).width() >= 576){
+					$(".sidenav-always").show();
+					if($(".content").hasClass("full-page")) $(".content").removeClass("full-page");
+				} else {
+					$(".sidenav-always").hide();
+					if($(".content").hasClass("full-page")) $(".content").addClass("full-page");
+				}
+			});
+
+			$(".close-flash").click(function(){
+				$(this).parent().hide();
 			});
 		});
 	</script>
+	{ifset custom_scripts}{include custom_scripts}{/ifset}
 	{/block}
+
+
 </body>
 </html>
