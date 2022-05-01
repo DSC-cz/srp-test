@@ -1,15 +1,14 @@
 body {
   background-color: #eee;
-  max-width: 100vw;
+  max-width: 100%;
   overflow-x: hidden;
 }
 
 .title {
   line-height: 60px;
-  width: 97vw;
-  padding: 0 15px;
+  width: 100%;
+  padding: 0 15px 0  65px;
   font-size: 20px;
-  margin: 0vh 2vw 2vh 3.5vw;
 }
 
 .title a {
@@ -17,17 +16,17 @@ body {
 }
 
 .content {
-  width: 94vw;
+  margin-top: 20px;
   -webkit-transition: .4s linear;
   transition: .4s linear;
   background-color: white;
-  margin: 2vh 2vw 2vh 4.25vw;
   padding: 10px 0px;
 }
 
 .content table {
   width: 95%;
-  margin: 0 2.5%;
+  overflow-x: auto;
+  margin: 0 auto;
 }
 
 .content table tbody td:nth-child(1) {
@@ -177,7 +176,6 @@ body {
 
 .sidenav-always {
   display: block !important;
-  max-width: 3.5vw;
   -webkit-transform: translateX(0) !important;
           transform: translateX(0) !important;
   padding: 10px 0;
@@ -257,7 +255,23 @@ body {
   border-bottom: 2px solid #2196F3;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (min-width: 768px) {
+  .content {
+    margin-left: 75px !important;
+    margin-right: 25px !important;
+  }
+  .sidenav-always {
+    width: 55px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .content {
+    margin-left: 6%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
   .sidenav-always {
     display: none !important;
   }
@@ -265,7 +279,32 @@ body {
     margin-left: 50px;
   }
   .content {
+    width: 100%;
     margin-left: 0px !important;
+  }
+  .m-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .wm-75 {
+    width: 75% !important;
+  }
+  .title {
+    padding-left: 20px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .brand-logo {
+    left: 0;
+    margin-left: 65px;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .brand-logo {
+    display: none !important;
   }
 }
 /*# sourceMappingURL=main.css.map */
