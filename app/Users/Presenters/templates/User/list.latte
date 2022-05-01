@@ -1,0 +1,134 @@
+{layout '../../../../Global/Presenters/templates/@layout.latte'}
+{block title}SRP{/block}
+{block back}Uživatelé{/block}
+
+{block content}
+    <a href="#add" class="modal-trigger mtb-10 btn blue ps-10 d-flex align-center ms-30 w-25" data-target="add"><i class="material-icons">add</i> Přidat uživatele</a>
+    
+    <div class="modal" id="add">
+        <div class="modal-content">
+            <div id="errors" n:if="$forms[add]->hasErrors()">
+                <div n:foreach="$forms[add]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </div>
+            <div id="add_form" class="center w-50 mtb-10">
+                <form n:name=addUser class=form>
+                    <div class="input-field"><i class="material-icons prefix circle">people</i><label for="name">Uživatelské jméno</label> <input id="name" n:name=username class="validate"></div>
+                    <div class="input-field"><i class="material-icons prefix circle">password</i><label for="pass">Heslo</label> <input id="pass" n:name=password class="validate"></div>
+                    <div class="input-field"><i class="material-icons prefix circle">email</i><label for="email">Emailová adresa</label> <input id="email" n:name=email class="validate"></div>
+                    
+                    <button n:name=add class="btn btn-default blue waves-effect waves-light">Přidat uživatele</button>
+                </form>
+			</div>
+        </div>
+
+        <div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect btn-flat">Zavřít</a>
+		</div>
+    </div>
+    
+    <div class="modal" id="delete">
+        <div class="modal-content">
+            <div id="errors" n:if="$forms[delete]->hasErrors()">
+                <div n:foreach="$forms[delete]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </div>
+            <div id="delete_form" class="center w-50 mtb-10">
+                <p class="center mtb-10">Opravdu chcete smazat účet <strong class="red-text name"></strong></p>
+                <form n:name=removeUser class=form>
+                    <input type="hidden" n:name="remove_id">
+                    <button n:name=delete class="btn btn-default blue waves-effect waves-light">Smazat uživatele</button>
+                </form>
+			</div>
+        </div>
+
+        <div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect btn-flat">Zavřít</a>
+		</div>
+    </div>
+
+    <div class="modal" id="reset">
+        <div class="modal-content">
+            <div id="errors" n:if="$forms[reset]->hasErrors()">
+                <div n:foreach="$forms[reset]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </div>
+            <div id="reset_form" class="center w-50 mtb-10">
+                <p class="center mtb-10">Resetování hesla pro uživatele <strong class="red-text name"></strong></p>
+                
+                <form n:name=resetPassword class=form>
+                    <input type="hidden" n:name="reset_id">
+                    <div class="input-field"><i class="material-icons prefix circle">password</i><label for="pass">Nové heslo</label> <input id="pass" n:name=password class="validate"></div>
+                    
+                    <button n:name=reset class="btn btn-default blue waves-effect waves-light">Resetovat heslo</button>
+                </form>
+			</div>
+        </div>
+
+        <div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect btn-flat">Zavřít</a>
+		</div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+				<th class="gray ps-10 d-flex center"><span>Uživatel</span> <a href="?rows={$rows}&order_by=username&type=ASC"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=username&type=DESC"><i class="material-icons">arrow_downward</i></a></th>
+				<th class="gray right-align ps-10">Akce</th>
+			</tr>
+        </thead>
+        <tbody>
+            <tr n:foreach="$users as $u">
+                <td>{$u->username}</td>
+                <td class="right-align"><a href="#delete" data-id="{$u->id}" class="delete-item modal-trigger gray-text darken-text-2">Smazat</a> <a href="#reset" data-id="{$u->id}" class="reset-item modal-trigger gray-text darken-text-2">Resetovat heslo</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="pagination ms-20">
+		{if $page-3 > 0}<li class="waves-effect"><a href="/brands/1?{$url_query}"><i class="material-icons">chevron_left</i></a></li>{/if}
+		{for $i = 1; $i < $page; $i++}
+			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
+		{/for}
+		<li class="active"><a href="#">{$page}</a></li>
+		{for $i = $page+1; $i < ($paginator->getPageCount() > $page + 3 ? $i+3 : $paginator->getPageCount()+1); $i++}
+			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
+		{/for}
+		{if $page+3 < $paginator->getPageCount()}<li class="waves-effect"><a href="/brands/{$paginator->getPageCount()}?{$url_query}"><i class="material-icons">chevron_right</i></a></li>{/if}
+	</ul>
+	<ul class="pagination ms-20">
+		{foreach $allowed_rows as $row}
+			<li class="{if $rows == $row}active{else}waves-effect{/if}"><a href="?rows={$row}">{$row}</a></li>
+		{/foreach}
+	</ul>
+{/block}
+
+{block custom_scripts}
+    <script>
+        $(".delete-item").click(function(){
+            $.ajax({
+                url: "/users/info/"+$(this).attr("data-id"),
+                type: "GET",
+                success: function(data){
+                    data = JSON.parse(data);
+                    $("#delete .name").html(data["username"]);
+                    $("[name=remove_id]").val(data["id"]);
+                },
+                error: function(){
+                    alert("Napodařilo se získat data uživatele");
+                }
+            })
+        });
+
+        $(".reset-item").click(function(){
+            $.ajax({
+                url: "/users/info/"+$(this).attr("data-id"),
+                type: "GET",
+                success: function(data){
+                    data = JSON.parse(data);
+                    $("#reset .name").html(data["username"]);
+                    $("[name=reset_id]").val(data["id"]);
+                },
+                error: function(){
+                    alert("Napodařilo se získat data uživatele");
+                }
+            })
+        });
+    </script>
+{/block}

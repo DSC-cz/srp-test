@@ -1,0 +1,125 @@
+{layout '../../../../Global/Presenters/templates/@layout.latte'}
+{block title}SRP{/block}
+{block back}Značky{/block}
+{block content}
+	<a href="#add" class="waves-effect waves-light btn modal-trigger btn blue ms-30 mtb-10 ps-10 d-flex align-center w-25"><i class="material-icons ps-10">add</i> Přidat značku</a>
+
+	<div id="add" class="modal">
+		<div class="modal-content">
+			<div id="errors" n:if="$forms[add]->hasErrors()">
+                <div n:foreach="$forms[add]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </div>
+            <div id="add_form" class="center w-50 mtb-10">
+                <form n:name=addNew class=form>
+                    <div class="input-field"><i class="material-icons prefix circle">local_offer</i><label for="name">Název značky</label> <input id="name" n:name=name class="validate"></div>
+                    <button n:name=add class="btn btn-default blue waves-effect waves-light">Přidat značku</button>
+                </form>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect btn-flat">Zavřít</a>
+		</div>
+	</div>
+
+<div id="edit" class="modal">
+		<div class="modal-content">
+			<div id="errors" n:if="$forms[edit]->hasErrors()">
+                <div n:foreach="$forms[edit]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </div>
+            <div id="form_edit" class="center w-50 mtb-10">
+                <form n:name=editItem class=form>
+                    <input type="hidden" n:name=edit_id>
+					<div class="input-field"><i class="material-icons prefix circle">local_offer</i><label for="name">Nový název značky</label> <input id="name" n:name=new_name class="validate" value="Název"></div>
+                    <button n:name=edit class="btn btn-default blue waves-effect waves-light">Upravit značku</button>
+                </form>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect btn-flat">Zavřít</a>
+		</div>
+	</div>
+
+
+	<div id="delete" class="modal">
+		<div class="modal-content">
+			<div id="errors" n:if="$forms[delete]->hasErrors()">
+                <div n:foreach="$forms[delete]->errors as $error" class="red white-text ps-10 ptb-10 w-50 center mtb-10 d-flex align-center"><i class="material-icons prefix circle">error</i> <span class="message">{$error}</span></div>
+            </div>
+            <div id="form_delete" class="center w-50 mtb-10">
+                <form n:name=removeItem class=form>
+                    <input n:name=delete_id type="hidden">
+					<p class="center">Opravdu chcete smazat <strong class="red-text name"></strong></p>
+                    <button n:name=delete class="btn btn-default blue waves-effect waves-light">Odstranit značku</button>
+                </form>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect btn-flat">Zavřít</a>
+		</div>
+	</div>
+
+	<table class="responsive-table w-90 ms-30 gray-border-tr gray-text darken-text-2">
+		<thead>
+			<tr>
+				<th class="gray ps-10 d-flex center"><span>Název</span> <a href="?rows={$rows}&order_by=name&type=ASC"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=name&type=DESC"><i class="material-icons">arrow_downward</i></a></th>
+				<th class="gray right-align ps-10">Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr n:foreach="$items as $item" id="item-{$item->id}">
+				<td>{$item->name}</td>
+				<td class="right ps-10"><a href="#delete" data-id="{$item->id}" class="modal-trigger delete-item gray-text darken-text-1">Smazat</a> <a href="#edit" data-id="{$item->id}" class="modal-trigger edit-item gray-text darken-text-1">Editovat</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul class="pagination ms-20">
+		{if $page-3 > 0}<li class="waves-effect"><a href="/brands/1?{$url_query}"><i class="material-icons">chevron_left</i></a></li>{/if}
+		{for $i = 1; $i < $page; $i++}
+			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
+		{/for}
+		<li class="active"><a href="#">{$page}</a></li>
+		{for $i = $page+1; $i < ($paginator->getPageCount() > $page + 3 ? $i+3 : $paginator->getPageCount()+1); $i++}
+			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
+		{/for}
+		{if $page+3 < $paginator->getPageCount()}<li class="waves-effect"><a href="/brands/{$paginator->getPageCount()}?{$url_query}"><i class="material-icons">chevron_right</i></a></li>{/if}
+	</ul>
+	<ul class="pagination ms-20">
+		{foreach $allowed_rows as $row}
+			<li class="{if $rows == $row}active{else}waves-effect{/if}"><a href="?rows={$row}">{$row}</a></li>
+		{/foreach}
+	</ul>
+{/block}
+
+{block custom_scripts}
+	<script>
+	$(".edit-item").click(function(){
+		$.ajax({
+			url: "/brands/info/"+$(this).attr("data-id"),
+			type: "GET",
+			success: function(data){
+				data = JSON.parse(data);
+				$("[name=new_name]").val(data["name"]);
+				$("[name=edit_id]").val(data["id"]);
+			},
+			error: function(){
+				console.error("Nepodařilo se získat data pro editaci položky.");
+			}
+		});
+	});
+	$(".delete-item").click(function(){
+		$.ajax({
+			url: "/brands/info/"+$(this).attr("data-id"),
+			type: "GET",
+			success: function(data){
+				data = JSON.parse(data);
+				$("strong.name").html(data["name"]);
+				$("[name=delete_id]").val(data["id"]);
+			},
+			error: function(){
+				console.error("Nepodařilo se získat data pro smazání položky.");
+			}
+		})
+	});
+	</script>
+{/block}

@@ -9,7 +9,9 @@ final class LogoutPresenter extends BasePresenter {
         $this->user = $user;
 
         $user->logout();
-        header('Location: /');
-        exit();
+    }
+
+    public function beforeRender(){
+        $this->redirect(":Front:Login:default");
     }
 }

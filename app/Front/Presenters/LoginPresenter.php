@@ -22,6 +22,10 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $this->user = $user;
     }
 
+    public function beforeRender(){
+        if($this->user->isLoggedIn()) $this->redirect(":Dashboard:Dashboard:default");
+    }
+
     public function createComponentSignIn(){
         $this->form->addText('username', 'Uživatelské jméno:')
             ->setRequired('Prosím vyplňte své uživatelské jméno.');
@@ -38,9 +42,9 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     public function signInSucceeded(Form $form, \stdClass $values){
         try {
             $this->auth->authenticate([$values->username, $values->password]);
-            $this->user->setExpiration('14 days');
+            $this->user->setExpiration(null);
 			$this->user->login($values->username, $values->password);
-            header('location: /dashboard');
+            $this->redirect(":Dashboard:Dashboard:default");
         } catch (Nette\Security\AuthenticationException $e) {
             $this->form->addError($e->getMessage());
         }
