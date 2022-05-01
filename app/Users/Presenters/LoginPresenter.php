@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Front\Presenters;
+namespace App\Users\Presenters;
 
 use Nette\Application\UI\Form;
-use App\Front\Model\Authenticator;
+use App\Users\Model\Authenticator;
 use Nette\Security\User;
 use Nette;
 

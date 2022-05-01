@@ -1,5 +1,5 @@
 {layout '../../../../Global/Presenters/templates/@layout.latte'}
-{block title}SRP{/block}
+{block title}SRP - Značky{/block}
 {block back}Značky{/block}
 {block content}
 	<a href="#add" class="waves-effect waves-light btn modal-trigger btn blue ms-30 mtb-10 ps-10 d-flex align-center w-25 wm-75 m-center"><i class="material-icons ps-10">add</i> Přidat značku</a>
@@ -61,7 +61,7 @@
 	<table class="ms-30 gray-border-tr gray-text darken-text-2">
 		<thead>
 			<tr>
-				<th class="gray ps-10 d-flex center"><span>Název</span> <a href="?rows={$rows}&order_by=name&type=ASC"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=name&type=DESC"><i class="material-icons">arrow_downward</i></a></th>
+				<th class="gray ps-10 d-flex center"><span>Název</span> <a href="?rows={$rows}&order_by=name&type=ASC" class="gray-text darken-text-3"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=name&type=DESC" class="gray-text darken-text-3"><i class="material-icons">arrow_downward</i></a></th>
 				<th class="gray right-align ps-10">Akce</th>
 			</tr>
 		</thead>

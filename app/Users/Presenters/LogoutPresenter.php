@@ -1,5 +1,5 @@
 <?php
-namespace App\Front\Presenters;
+namespace App\Users\Presenters;
 
 use Nette;
 use App\Global\Presenters\BasePresenter;
@@ -14,6 +14,6 @@ final class LogoutPresenter extends BasePresenter {
     }
 
     public function beforeRender(){
-        $this->redirect(":Front:Login:default");
+        $this->redirect(":Users:Login:default");
     }
 }

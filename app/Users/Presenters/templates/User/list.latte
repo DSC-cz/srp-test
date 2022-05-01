@@ -1,5 +1,5 @@
 {layout '../../../../Global/Presenters/templates/@layout.latte'}
-{block title}SRP{/block}
+{block title}SRP - Uživatelé{/block}
 {block back}Uživatelé{/block}
 
 {block content}
@@ -69,20 +69,20 @@
     <table>
         <thead>
             <tr>
-				<th class="gray ps-10 d-flex center"><span>Uživatel</span> <a href="?rows={$rows}&order_by=username&type=ASC"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=username&type=DESC"><i class="material-icons">arrow_downward</i></a></th>
-				<th class="gray right-align ps-10">Akce</th>
+				<th class="gray gray-text darken-text-2 ps-10 d-flex center"><span>Uživatel</span> <a href="?rows={$rows}&order_by=username&type=ASC" class="gray-text darken-text-3"><i class="material-icons">arrow_upward</i></a> <a href="?rows={$rows}&order_by=username&type=DESC" class="gray-text darken-text-3"><i class="material-icons">arrow_downward</i></a></th>
+				<th class="gray gray-text darken-text-2 right-align ps-10">Akce</th>
 			</tr>
         </thead>
         <tbody>
             <tr n:foreach="$users as $u">
-                <td>{$u->username}</td>
+                <td>{$u->username} &bull; <a href="mailto:{$u->email}">{$u->email}</a></td>
                 <td class="right-align"><a href="#delete" data-id="{$u->id}" class="delete-item modal-trigger gray-text darken-text-2">Smazat</a> <a href="#reset" data-id="{$u->id}" class="reset-item modal-trigger gray-text darken-text-2">Resetovat heslo</a></td>
             </tr>
         </tbody>
     </table>
 
     <ul class="pagination ms-20">
-		{if $page-3 > 0}<li class="waves-effect"><a href="/brands/1?{$url_query}"><i class="material-icons">chevron_left</i></a></li>{/if}
+		{if $page-3 > 0}<li class="waves-effect"><a href="/brands/1?{$url_query}"><i class="material-icons">chevron_left</i> 1</a></li> ... {/if}
 		{for $i = 1; $i < $page; $i++}
 			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
 		{/for}
@@ -90,7 +90,7 @@
 		{for $i = $page+1; $i < ($paginator->getPageCount() > $page + 3 ? $i+3 : $paginator->getPageCount()+1); $i++}
 			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
 		{/for}
-		{if $page+3 < $paginator->getPageCount()}<li class="waves-effect"><a href="/brands/{$paginator->getPageCount()}?{$url_query}"><i class="material-icons">chevron_right</i></a></li>{/if}
+		{if $page+3 < $paginator->getPageCount()} ... <li class="waves-effect"><a href="/brands/{$paginator->getPageCount()}?{$url_query}">{$paginator->getPageCount()} <i class="material-icons">chevron_right</i></a></li>{/if}
 	</ul>
 	<ul class="pagination ms-20">
 		{foreach $allowed_rows as $row}

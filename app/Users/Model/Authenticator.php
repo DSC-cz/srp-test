@@ -1,5 +1,5 @@
 <?php
-namespace App\Front\Model;
+namespace App\Users\Model;
 use Nette;
 use Nette\Security\IIdentity;
 

@@ -10,7 +10,7 @@ class BasePresenter extends Nette\Application\UI\Presenter {
 
     public function isLoggedIn(){
         if(!$this->user->isLoggedIn()){
-            $this->redirect(":Front:Login:default");
+            $this->redirect(":Users:Login:default");
             exit();
         }
     }
