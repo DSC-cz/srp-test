@@ -82,15 +82,15 @@
     </table>
 
     <ul class="pagination ms-20">
-		{if $page-3 > 0}<li class="waves-effect"><a href="/brands/1?{$url_query}"><i class="material-icons">chevron_left</i> 1</a></li> ... {/if}
-		{for $i = 1; $i < $page; $i++}
-			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
+		{if $page-3 > 1}<li class="waves-effect"><a href="/users/1?{$url_query}"><i class="material-icons">chevron_left</i> 1</a></li> ... {/if}
+		{for $i = ($page-3 > 1 ? $page-3 : 1); $i < $page; $i++}
+			<li class="waves-effect"><a href="/users/{$i}?{$url_query}">{$i}</a></li>
 		{/for}
 		<li class="active"><a href="#">{$page}</a></li>
-		{for $i = $page+1; $i < ($paginator->getPageCount() > $page + 3 ? $i+3 : $paginator->getPageCount()+1); $i++}
-			<li class="waves-effect"><a href="/brands/{$i}?{$url_query}">{$i}</a></li>
+		{for $i = $page+1; $i < ($paginator->getPageCount() > $page + 3 ? $page+4 : $paginator->getPageCount()+1); $i++}
+			<li class="waves-effect"><a href="/users/{$i}?{$url_query}">{$i}</a></li>
 		{/for}
-		{if $page+3 < $paginator->getPageCount()} ... <li class="waves-effect"><a href="/brands/{$paginator->getPageCount()}?{$url_query}">{$paginator->getPageCount()} <i class="material-icons">chevron_right</i></a></li>{/if}
+		{if $page+3 < $paginator->getPageCount()} ... <li class="waves-effect"><a href="/users/{$paginator->getPageCount()}?{$url_query}">{$paginator->getPageCount()} <i class="material-icons">chevron_right</i></a></li>{/if}
 	</ul>
 	<ul class="pagination ms-20">
 		{foreach $allowed_rows as $row}

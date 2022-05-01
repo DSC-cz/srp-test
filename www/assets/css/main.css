@@ -137,15 +137,15 @@ body {
 }
 
 .gray.darken-1 {
-  color: #cac7c7;
+  background-color: #cac7c7;
 }
 
 .gray.darken-2 {
-  color: #a5a4a4;
+  background-color: #a5a4a4;
 }
 
 .gray.darken-3 {
-  color: #807e7e;
+  background-color: #807e7e;
 }
 
 .gray-text {
@@ -214,8 +214,9 @@ body {
   width: 90%;
   left: 50%;
   right: 50%;
-  background-color: #eee;
-  border: 1px solid #f5f5f5;
+  background-color: #e2f7ff;
+  border: 1px solid #8d8d8d;
+  border-radius: 15px;
   z-index: 100;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -240,6 +241,12 @@ body {
   border-bottom: 2px solid white;
   -webkit-transition: border .3s ease-in-out;
   transition: border .3s ease-in-out;
+}
+
+.pagination li a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .pagination li.active {
