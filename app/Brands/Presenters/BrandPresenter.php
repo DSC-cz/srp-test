@@ -43,7 +43,7 @@ final class BrandPresenter extends BasePresenter {
             $this->template->items = $this->brandsRepository
                             ->getBrands()
                             ->limit($limit, $offset)
-                            ->order((isset($this->params["order_by"]) ? $this->params["order_by"] : "id") . ' ' . (isset($this->params["type"]) && strtoupper($this->params["type"]) == "DESC" ? "DESC" : "ASC"));
+                            ->order((isset($this->params["order_by"]) ? $this->params["order_by"] : "id") . ' ' . (isset($this->params["type"]) && strtoupper($this->params["type"]) == "ASC" ? "ASC" : "DESC"));
                 
             $items_count = $this->brandsRepository->getBrandsCount();
         

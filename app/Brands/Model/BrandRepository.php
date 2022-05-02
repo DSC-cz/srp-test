@@ -30,7 +30,7 @@ final class BrandRepository {
         if(strlen($name) < 3 || strlen($name) > 50) throw new \Exception("Značka musí obsahovat alespoň 3 znaky a nesmí být delší než 50 znaků.");
         if($this->getBrands()->where("name", $name)->count() !== 0) throw new \Exception("Zadaná značka je již založena.");
         
-        return $this->database->table('brands')->insert(['name'=>$name, 'created_by'=>$created_by, 'created_at'=>date("Y-m-d H:i:s", strtotime("now"))]);
+        return $this->database->table('brands')->insert(['name'=>$name, 'created_by'=>$created_by, 'created_at'=>new \DateTime]);
     }
 
     public function delete($id){
@@ -38,7 +38,7 @@ final class BrandRepository {
     }
 
     public function update($id, $name, $user){
-        return $this->database->table('brands')->where('id', $id)->update(['name'=>$name, 'edited_at'=>date("Y-m-d H:i:s", strtotime("now")), 'edited_by'=>$user]);
+        return $this->database->table('brands')->where('id', $id)->update(['name'=>$name, 'edited_at'=>new \DateTime, 'edited_by'=>$user]);
     }
 }
 

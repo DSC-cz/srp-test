@@ -37,7 +37,7 @@ final class UserPresenter extends BasePresenter {
             $this->template->users = $this->usersRepository
                             ->getUsers()
                             ->limit($limit, $offset)
-                            ->order((isset($this->params["order_by"]) ? $this->params["order_by"] : "id") . ' ' . (isset($this->params["type"]) && strtoupper($this->params["type"]) == "DESC" ? "DESC" : "ASC"));
+                            ->order((isset($this->params["order_by"]) ? $this->params["order_by"] : "id") . ' ' . (isset($this->params["type"]) && strtoupper($this->params["type"]) == "ASC" ? "ASC" : "DESC"));
                 
             $items_count = $this->usersRepository->getUsersCount();
         

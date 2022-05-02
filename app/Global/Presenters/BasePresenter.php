@@ -6,7 +6,7 @@ use Nette\Http\Request;
 
 class BasePresenter extends Nette\Application\UI\Presenter {
     protected $user;
-    protected $allowed_rows = [5, 10, 20, 30];
+    protected $allowed_rows = [10, 20, 30];
 
     public function isLoggedIn(){
         if(!$this->user->isLoggedIn()){
