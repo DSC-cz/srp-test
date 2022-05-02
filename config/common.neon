@@ -2,11 +2,11 @@ parameters:
 
 
 application:
-	errorPresenter: Global:Error
+	errorPresenter: Front:Error
 	catchExceptions: true
 	mapping:
 		*: App\*\Presenters\*Presenter
-		Error: App\Global\Presenters\*Presenter
+		Error: App\Front\Presenters\*Presenter
 
 
 session:

@@ -2,7 +2,7 @@
 namespace App\Users\Presenters;
 
 use Nette;
-use App\Global\Presenters\BasePresenter;
+use App\Front\Presenters\BasePresenter;
 use Nette\Security\User;
 
 final class LogoutPresenter extends BasePresenter {

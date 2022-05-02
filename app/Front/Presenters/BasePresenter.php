@@ -1,5 +1,5 @@
 <?php
-namespace App\Global\Presenters;
+namespace App\Front\Presenters;
 
 use Nette;
 use Nette\Http\Request;

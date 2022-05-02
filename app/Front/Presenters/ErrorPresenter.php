@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Global\Presenters;
+namespace App\Front\Presenters;
 
 use Nette;
 use Nette\Application\Responses;
 use Nette\Http;
 use Tracy\ILogger;
-use App\Global\Presenters\BasePresenter;
+use App\Front\Presenters\BasePresenter;
 
 
 final class ErrorPresenter extends BasePresenter implements Nette\Application\IPresenter{

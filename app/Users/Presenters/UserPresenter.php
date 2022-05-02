@@ -3,7 +3,7 @@
 namespace App\Users\Presenters;
 
 use Nette;
-use App\Global\Presenters\BasePresenter;
+use App\Front\Presenters\BasePresenter;
 use App\Users\Model\UserRepository;
 use Nette\Application\UI\Form;
 use Nette\Http\Url;

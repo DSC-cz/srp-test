@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Global\Presenters;
+namespace App\Front\Presenters;
 
 use Nette;
 
-use App\Global\Presenters\BasePresenter;
+use App\Front\Presenters\BasePresenter;
 use Nette\Security\User;
 
 

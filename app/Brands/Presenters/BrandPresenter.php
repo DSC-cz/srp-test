@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Brands\Presenters;
 
 use Nette;
-use App\Global\Presenters\BasePresenter;
+use App\Front\Presenters\BasePresenter;
 use App\Brands\Model\BrandRepository;
 use Nette\Security\User;
 use Nette\Application\UI\Form;
