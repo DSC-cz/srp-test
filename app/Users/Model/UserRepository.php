@@ -40,7 +40,7 @@ final class UserRepository{
     }
 
     public function reset($id, $password){
-        if(strlen($password) < 8) throw new \Exception("Heslo musí mít minimálně 8 znaků.");
+        if(strlen($password) < 8) throw new \Exception("Hesla musí mít minimálně 8 znaků.");
         
         return $this->database->table('users')->where('id', $id)->update(['password'=>$this->passwords->hash($password)]);
     }
